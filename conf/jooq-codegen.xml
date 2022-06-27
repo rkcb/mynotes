@@ -2,7 +2,7 @@
   <!-- Configure the database connection here -->
   <jdbc>
     <driver>SQLite.JDBCDriver</driver>
-    <url>jdbc:sqlite:/home/esa/develop/IdeaProjects/scala/mynotes/db/notes.sq3</url>
+    <url>jdbc:sqlite:db/notes.sq3</url>
     <user>esa</user>
     <password>esa</password>
     
