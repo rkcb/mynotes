@@ -1,0 +1,61 @@
+<configuration xmlns="http://www.jooq.org/xsd/jooq-codegen-3.16.0.xsd">
+  <!-- Configure the database connection here -->
+  <jdbc>
+    <driver>SQLite.JDBCDriver</driver>
+    <url>jdbc:sqlite:/home/esa/develop/IdeaProjects/scala/mynotes/db/notes.sq3</url>
+    <user>esa</user>
+    <password>esa</password>
+    
+    <!-- You can also pass user/password and other JDBC properties in the optional properties tag: -->
+    <properties>
+<!--      <property><key>user</key><value>[db-user]</value></property>-->
+<!--      <property><key>password</key><value>[db-password]</value></property>-->
+    </properties>
+  </jdbc>
+
+  <generator>
+    <database>
+
+      <name>org.jooq.meta.sqlite.SQLiteDatabase</name>
+
+      <!-- All elements that are generated from your schema (A Java regular expression.
+           Use the pipe to separate several expressions) Watch out for
+           case-sensitivity. Depending on your database, this might be
+           important!
+           
+           You can create case-insensitive regular expressions using this syntax: (?i:expr)
+           
+           Whitespace is ignored and comments are possible.
+           -->
+      <includes>.*</includes>
+
+      <!-- All elements that are excluded from your schema (A Java regular expression.
+           Use the pipe to separate several expressions). Excludes match before
+           includes, i.e. excludes have a higher priority -->
+      <excludes>
+<!--           UNUSED_TABLE                # This table (unqualified name) should not be generated-->
+<!--         | PREFIX_.*                   # Objects with a given prefix should not be generated-->
+<!--         | SECRET_SCHEMA\.SECRET_TABLE # This table (qualified name) should not be generated-->
+<!--         | SECRET_ROUTINE              # This routine (unqualified name) ...-->
+      </excludes>
+
+      <!-- The schema that is used locally as a source for meta information.
+           This could be your development schema or the production schema, etc
+           This cannot be combined with the schemata element.
+
+           If left empty, jOOQ will generate all available schemata. See the
+           manual's next section to learn how to generate several schemata -->
+      <inputSchema>public</inputSchema>
+    </database>
+
+    <!-- Generation flags: See advanced configuration properties -->
+    <generate/>
+
+    <target>
+      <packageName>org.jooq.database</packageName>
+
+      <!-- The destination directory of your generated classes -->
+      <directory>database</directory>
+    </target>
+  </generator>
+</configuration>
