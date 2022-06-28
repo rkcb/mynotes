@@ -1,5 +1,8 @@
 target
 /.bsp
-/.idea
+/**/.idea
 /logs
 /RUNNING_PID
+logs
+db/notes.sq3
+.g8
