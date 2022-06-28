@@ -6,3 +6,4 @@ target
 logs
 db/notes.sq3
 /.g8
+**/.idea
