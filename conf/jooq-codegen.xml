@@ -1,10 +1,11 @@
 <configuration xmlns="http://www.jooq.org/xsd/jooq-codegen-3.16.0.xsd">
   <!-- Configure the database connection here -->
   <jdbc>
-    <driver>SQLite.JDBCDriver</driver>
+<!--    <driver>SQLite.JDBCDriver</driver>-->
+    <driver>org.sqlite.JDBC</driver>
     <url>jdbc:sqlite:db/notes.sq3</url>
-    <user>esa</user>
-    <password>esa</password>
+    <user>foo</user>
+    <password>bar</password>
     
     <!-- You can also pass user/password and other JDBC properties in the optional properties tag: -->
     <properties>
@@ -45,7 +46,7 @@
 
            If left empty, jOOQ will generate all available schemata. See the
            manual's next section to learn how to generate several schemata -->
-      <inputSchema>public</inputSchema>
+<!--      <inputSchema>public</inputSchema>-->
     </database>
 
     <!-- Generation flags: See advanced configuration properties -->
