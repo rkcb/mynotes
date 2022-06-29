@@ -9,6 +9,11 @@ Global / onChangedBuildSource := ReloadOnSourceChanges
 
 lazy val root = (project in file("."))
   .aggregate(database)
+  .settings(
+    jooqVersion := "3.16.7",
+    jooqOrganization := "org.jooq",
+    jooqCodegenConfig := file("conf/jooq-codegen.xml")
+  )
   .enablePlugins(
     PlayScala,
     JooqCodegenPlugin
@@ -25,14 +30,14 @@ lazy val database = project
     libraryDependencies += "org.xerial" % "sqlite-jdbc" % "3.36.0.3",
   )
 
-scalaVersion := "2.13.8"
-jooqVersion := "3.16.6"
+
 
 libraryDependencies ++= Seq(
   guice,
   jdbc,
   "javax.xml.bind" % "jaxb-api" % "2.4.0-b180830.0359",
   "org.xerial" % "sqlite-jdbc" % "3.36.0.3",
+  "org.xerial" % "sqlite-jdbc" % "3.36.0.3" % JooqCodegen,
   "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % Test
 )
 
