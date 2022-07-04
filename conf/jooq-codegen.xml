@@ -3,7 +3,7 @@
     <jdbc>
         <!--    <driver>SQLite.JDBCDriver</driver>-->
         <driver>org.sqlite.JDBC</driver>
-        <url>jdbc:sqlite:db/notes.sq3</url>
+        <url>jdbc:sqlite:app/db/notes.sq3</url>
         <user>foo</user>
         <password>bar</password>
 
@@ -61,7 +61,7 @@
             <packageName>org.jooq</packageName>
 
             <!-- The destination directory of your generated classes -->
-            <directory>db</directory>
+            <directory>app/db</directory>
         </target>
     </generator>
 </configuration>

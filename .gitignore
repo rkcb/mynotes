@@ -4,6 +4,6 @@ target
 /logs
 /RUNNING_PID
 logs
-db/notes.sq3
+app/database/notes.sq3
 /.g8
-/db/org/**
+/app/db/org/**

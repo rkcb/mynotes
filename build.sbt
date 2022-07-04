@@ -6,39 +6,40 @@ organization := "notes"
 version := "1.0-SNAPSHOT"
 ThisBuild / scalaVersion := "2.13.8"
 Global / onChangedBuildSource := ReloadOnSourceChanges
+val jooqV = "3.16.7"
 
 lazy val root = (project in file("."))
-  .aggregate(database)
-  .settings(
-    jooqVersion := "3.16.7",
-    jooqOrganization := "org.jooq",
-    jooqCodegenConfig := file("conf/jooq-codegen.xml")
-  )
-  .enablePlugins(
-    PlayScala,
-    JooqCodegenPlugin
-  ).dependsOn(database)
+	.aggregate(dbmigration)
+	.settings(
+		jooqVersion := jooqV,
+		jooqOrganization := "org.jooq",
+		jooqCodegenConfig := file("conf/jooq-codegen.xml")
+	)
+	.enablePlugins(
+		PlayScala,
+		JooqCodegenPlugin
+	).dependsOn(dbmigration)
 
-lazy val database = project
-  .enablePlugins(FlywayPlugin)
-  .settings(
-    name := "Database",
-    flywayUrl := "jdbc:sqlite:db/notes.sq3",
-    flywayUser := "",
-    flywayPassword := "",
-    flywayDriver := "org.sqlite.JDBC",
-    libraryDependencies += "org.xerial" % "sqlite-jdbc" % "3.36.0.3",
-  )
-
-
+lazy val dbmigration = (project in file("dbmigration"))
+	.enablePlugins(FlywayPlugin)
+	.settings(
+		name := "Database Migration",
+		flywayUrl := "jdbc:sqlite:app/db/notes.sq3",
+		flywayUser := "",
+		flywayPassword := "",
+		flywayLocations := Seq("database/migration"),
+		flywayDriver := "org.sqlite.JDBC",
+		libraryDependencies += "org.xerial" % "sqlite-jdbc" % "3.36.0.3",
+	)
 
 libraryDependencies ++= Seq(
-  guice,
-  jdbc,
-  "javax.xml.bind" % "jaxb-api" % "2.4.0-b180830.0359",
-  "org.xerial" % "sqlite-jdbc" % "3.36.0.3",
-  "org.xerial" % "sqlite-jdbc" % "3.36.0.3" % JooqCodegen,
-  "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % Test
+	guice,
+	jdbc,
+	"javax.xml.bind" % "jaxb-api" % "2.4.0-b180830.0359",
+	"org.xerial" % "sqlite-jdbc" % "3.36.0.3",
+	"org.xerial" % "sqlite-jdbc" % "3.36.0.3" % JooqCodegen,
+	"org.jooq" %% "jooq-scala" % jooqV,
+	"org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % Test
 )
 
 // Adds additional packages into Twirl
