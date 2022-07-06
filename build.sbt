@@ -1,11 +1,13 @@
 import sbt.Keys.libraryDependencies
 
+
 name := """mynotes"""
 organization := "notes"
 
 version := "1.0-SNAPSHOT"
 ThisBuild / scalaVersion := "2.13.8"
 Global / onChangedBuildSource := ReloadOnSourceChanges
+
 val jooqV = "3.16.7"
 
 lazy val root = (project in file("."))
@@ -29,12 +31,17 @@ lazy val dbmigration = (project in file("dbmigration"))
 		flywayPassword := "",
 		flywayLocations := Seq("database/migration"),
 		flywayDriver := "org.sqlite.JDBC",
+		Test / flywayUrl := "jdbc:sqlite:app/db/testNotes.sq3",
+		Test / flywayLocations := Seq("database/migration"),
+		Test / flywayUser := "",
+		Test / flywayPassword := "",
 		libraryDependencies += "org.xerial" % "sqlite-jdbc" % "3.36.0.3",
 	)
 
 libraryDependencies ++= Seq(
 	guice,
 	jdbc,
+	jdbc % Test,
 	"javax.xml.bind" % "jaxb-api" % "2.4.0-b180830.0359",
 	"org.xerial" % "sqlite-jdbc" % "3.36.0.3",
 	"org.xerial" % "sqlite-jdbc" % "3.36.0.3" % JooqCodegen,

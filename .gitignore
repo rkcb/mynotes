@@ -6,5 +6,5 @@ target
 logs
 app/database/notes.sq3
 /.g8
-/app/db/org/**
+/app/db/org/jooq/**
 /app/db/notes.sq3
