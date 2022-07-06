@@ -1,5 +1,7 @@
 import sbt.Keys.libraryDependencies
+import com.typesafe.config.{Config, ConfigFactory}
 
+val conf = ConfigFactory.parseFile(new File("conf/application.conf"))
 
 name := """mynotes"""
 organization := "notes"
@@ -22,20 +24,26 @@ lazy val root = (project in file("."))
 		JooqCodegenPlugin
 	).dependsOn(dbmigration)
 
+//db.default.driver=org.sqlite.JDBC
+//db.default.url="jdbc:sqlite:app/db/notes.sq3"
+//db.test.url="jdbc:sqlite:app/db/testNotes.sq3"
+
+
 lazy val dbmigration = (project in file("dbmigration"))
 	.enablePlugins(FlywayPlugin)
 	.settings(
 		name := "Database Migration",
-		flywayUrl := "jdbc:sqlite:app/db/notes.sq3",
+		flywayUrl := conf.getString("db.default.url"),
 		flywayUser := "",
 		flywayPassword := "",
 		flywayLocations := Seq("database/migration"),
-		flywayDriver := "org.sqlite.JDBC",
-		Test / flywayUrl := "jdbc:sqlite:app/db/testNotes.sq3",
+		flywayDriver := conf.getString("db.default.driver"),
+		libraryDependencies += "org.xerial" % "sqlite-jdbc" % "3.36.0.3",
+//		Test / flywayUrl := "jdbc:sqlite:app/db/testNotes.sq3",
+		Test / flywayUrl := conf.getString("db.test.url"),
 		Test / flywayLocations := Seq("database/migration"),
 		Test / flywayUser := "",
 		Test / flywayPassword := "",
-		libraryDependencies += "org.xerial" % "sqlite-jdbc" % "3.36.0.3",
 	)
 
 libraryDependencies ++= Seq(
