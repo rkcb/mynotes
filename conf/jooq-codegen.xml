@@ -58,10 +58,10 @@
             <fluentSetters>true</fluentSetters>
         </generate>
         <target>
-            <packageName>org.jooq</packageName>
+            <packageName>db.org.jooq</packageName>
 
             <!-- The destination directory of your generated classes -->
-            <directory>app/db</directory>
+            <directory>app</directory>
         </target>
     </generator>
 </configuration>
