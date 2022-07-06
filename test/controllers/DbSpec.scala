@@ -18,7 +18,7 @@ import db.org.jooq.tables.records.NoteRecord
 class DbSpec extends PlaySpec with GuiceOneAppPerSuite {
 	lazy val db = app.injector.instanceOf[DbApi]
 
- 	"DbTool instance" should {
+	"DbApi instance" should {
 
 		"get DslContext" in {
 			val create = db.jooqContext
@@ -43,16 +43,14 @@ class DbSpec extends PlaySpec with GuiceOneAppPerSuite {
 		}
 
 		"create a record" in {
-			db.action( create =>
-				create.executeInsert(new NoteRecord())
+			val res = db.action(create =>
+				create.executeInsert(new NoteRecord()
+					.setNote("test note")
+					.setThemeId("scala")
+				)
 			)
+			await(res) mustBe 1
 		}
-
-
-
-
-
-
 
 
 	}
