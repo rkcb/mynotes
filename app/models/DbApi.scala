@@ -15,5 +15,8 @@ class DbApi @Inject()(db: Database, ec:  DatabaseExecutionContext) {
     Future(q(jooqContext))(ec)
   }
 
+  def url = db.url
+
+
 }
 

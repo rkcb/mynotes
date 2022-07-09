@@ -1,31 +1,32 @@
 package db
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
 
 object PojoJson {
 //	implicit val noteFormat = Json.format[Note]
-	case class Note(
-								 val id: Int,
+	case class NoteInputOutput(
+								 val id: Option[Int],
 								 val themeId: String,
-								 val note: String
+								 val note: String,
+								 val tags: Option[Seq[String]]
 							 )
 
-	case class NoteTag(
+	case class NoteTagInputOutput(
 											val noteId: Int,
 											val tagId: Int
 										)
 
-	case class Tag(
+	case class TagInputOutput(
 									val name: String
 								)
 
-	case class Theme(
+	case class ThemeInputOutput(
 										val name: String
 									)
 
 
-	implicit val formatNote = Json.format[Note]
-	implicit val formatNoteTag = Json.format[NoteTag]
-	implicit val formatTag = Json.format[Tag]
-	implicit val formatTheme = Json.format[Theme]
+	implicit val formatNote: OFormat[NoteInputOutput] = Json.format[NoteInputOutput]
+	implicit val formatNoteTag: OFormat[NoteTagInputOutput] = Json.format[NoteTagInputOutput]
+	implicit val formatTag: OFormat[TagInputOutput] = Json.format[TagInputOutput]
+	implicit val formatTheme: OFormat[ThemeInputOutput] = Json.format[ThemeInputOutput]
 }
