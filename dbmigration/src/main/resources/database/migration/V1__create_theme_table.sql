@@ -19,7 +19,7 @@ create table tag (
 
 create table note_tag (
   note_id int not null,
-  tag_id int not null,
+  tag_id text not null,
   constraint note_tag_note_id_fk foreign key (note_id) references note(id),
   constraint note_tag_tag_id_fk foreign key (tag_id) references tag(name)
 );
