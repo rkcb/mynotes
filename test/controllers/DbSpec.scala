@@ -13,10 +13,17 @@ import scala.concurrent.Future
 import scala.jdk.CollectionConverters._
 import db.org.jooq.Tables._
 import db.org.jooq.tables.records.NoteRecord
+import org.scalatest.BeforeAndAfter
 
 
-class DbSpec extends PlaySpec with GuiceOneAppPerSuite {
-	lazy val db = app.injector.instanceOf[DbApi]
+class DbSpec extends TestWithTestDb {
+
+
+	before {
+		db.jooqContext.truncate(NOTE)
+		db.jooqContext.truncate(NOTE_TAG)
+		db.jooqContext.truncate(TAG)
+	}
 
 	"DbApi instance" should {
 
